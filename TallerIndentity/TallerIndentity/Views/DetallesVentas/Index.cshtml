@@ -1,0 +1,83 @@
+﻿@model IEnumerable<TallerIndentity.Models.DetallesVenta>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalle de ventas</h1>
+
+<p>
+</p>
+<form asp-controller="DetallesVentas" asp-action="Index">
+    <div class="row justify-content-between">
+        <div class="col-md-auto"><a asp-action="Create" class="btn btn-secondary" style="float: right;">Registrar detalle de la venta</a></div>
+        <div class="col-md-5">
+            <div class="d-flex justify-content-end">
+                <input type="number" name="filter" class="form-control " style="margin-right:3px"/>
+                <input type="submit" value="Buscar" class="btn btn-dark" />
+            </div>
+        </div>
+        
+        
+    </div>
+</form>
+@if (Model.Count() > 0)
+{
+    <table class="table table-bordered table-hover" style="margin-top:20px">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Factura
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Valor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Producto)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Venta)
+                </th>
+                <th>
+                    Acciones
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VentaId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Valor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.IdProductos)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Venta.IdVenta)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" class="btn btn-sm  btn-primary" asp-route-id="@item.DetalleVentaId">Editar</a> |
+                        <a asp-action="Details" class="btn btn-sm btn-outline-primary" asp-route-id="@item.DetalleVentaId">Detalle</a> |
+                        <a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@item.DetalleVentaId">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p style="text-align: center;">No se encontraron datos.</p>
+}
